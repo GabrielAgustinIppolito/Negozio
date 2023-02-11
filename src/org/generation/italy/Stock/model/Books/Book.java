@@ -1,6 +1,6 @@
-package Stock.model.Books;
+package org.generation.italy.Stock.model.Books;
 
-import Stock.model.Product;
+import org.generation.italy.Stock.model.Product;
 //Libro: String ISBN, String Titolo, String Categoria, double Peso, double Costo, int Pagine
 public class Book extends Product {
    private String isbn;

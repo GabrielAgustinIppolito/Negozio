@@ -1,4 +1,4 @@
-package Stock.model;
+package org.generation.italy.Stock.model;
 
 public abstract class Product {
    //Tutti i prodotti hanno un peso, un costo,un nome(titolo/Marca) una categoria (categoria/Tipo)

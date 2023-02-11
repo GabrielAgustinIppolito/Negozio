@@ -1,18 +1,58 @@
-package Stock.model;
-import Stock.model.Product;
+package org.generation.italy.Stock.model;
+import org.generation.italy.Stock.model.Racket.RacketOfPadel;
+
 import java.util.ArrayList;
 
 public class Market {
 //   Creare una classe "Negozio" che dovrà avere un unico ArrayList che contiene tutti i suoi
 //   prodotti e solo quelli;
+   private String marketName;
+   private String proprietario;
    private ArrayList<Product> allProducts;
 
-//3d. Una che aggiunga un nuovo prodotto alla lista dalla main, non da tastiera
+   public Market(){}
+   public Market(String marketName, String proprietario){
+      this.marketName = marketName;
+      this.proprietario = proprietario;
+   }
+
+   public void setMarketName(String marketName) {
+      this.marketName = marketName;
+   }
+
+   public String getMarketName() {
+      return marketName;
+   }
+
+   public String getProprietario() {
+      return proprietario;
+   }
+
+   public void setProprietario(String proprietario) {
+      this.proprietario = proprietario;
+   }
+
+   public ArrayList<Product> getAllProducts() {
+      return allProducts;
+   }
+
+   public void setAllProducts(ArrayList<Product> allProducts) {
+      this.allProducts = allProducts;
+   }
+   public String[] getAllProductsNames(){
+      String[] names = new String[allProducts.size()];
+      for (int i = 0; i < allProducts.size(); i++){
+         names[i] = allProducts.get(i).name;
+      }
+      return names;
+   }
+
+   //3d. Una che aggiunga un nuovo prodotto alla lista dalla main, non da tastiera
    public void addProductToMarket(Product prod){
       allProducts.add(prod);
    }
 // 3a. il numero di prodotti del Negozio
-   public int totalOfProducts(){
+   public int getTotalOfProducts(){
       return allProducts.size();
    }
  //3b. il peso totale di tutti i prodotti al momento nel Negozio
@@ -74,14 +114,20 @@ public class Market {
       return prod;
    }
 //3f. un'ArrayList con dentro tutte le Racchette A Goccia, e che costano più di €100,00
+
    public ArrayList<Product> dropRacket100(){
-      ArrayList<Product> dropRacket = null;
+      ArrayList<Product> dropRacket = new ArrayList<>(allProducts.size());
       if(allProducts.size()>0) {
          for (Product p : allProducts) {
-            if (p.getCost() > 100.00) {
-               dropRacket.add(p);
+            if(p.getClass() == RacketOfPadel.class) {
+               if(((RacketOfPadel) p).getShapeType().equalsIgnoreCase("goccia")){
+                  if (p.getCost() > 100.00) {
+                     dropRacket.add(p);
+                  }
+               }
             }
          }
+         return dropRacket;
       }
       return dropRacket;
    }

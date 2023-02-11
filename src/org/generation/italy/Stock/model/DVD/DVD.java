@@ -1,6 +1,6 @@
-package Stock.model.DVD;
+package org.generation.italy.Stock.model.DVD;
 
-import Stock.model.Product;
+import org.generation.italy.Stock.model.Product;
 //DVD: String Titolo, String Categoria, double Peso, double Costo, double Durata
 public class DVD extends Product {
    private double duration;
@@ -22,6 +22,6 @@ public class DVD extends Product {
       this.duration = duration;
    }
    public double getDuration(){
-      return duration;
+      return duration/60;
    }
 }
