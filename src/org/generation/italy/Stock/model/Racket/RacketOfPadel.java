@@ -1,4 +1,6 @@
 package org.generation.italy.Stock.model.Racket;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import org.generation.italy.Stock.model.Product;
 //Racchetta da padel: String Marca, double Peso, double Costo, Tipo (Rotonda, A Goccia, A Diamante)
@@ -7,12 +9,18 @@ import org.generation.italy.Stock.model.Product;
 public class RacketOfPadel extends Product {
 //  tipo -> categorìa
    private String brand;
+   private ArrayList<String> shapes;//nel caso un giorno spuntasse una nuova forma potremmo aggiungerla
    public RacketOfPadel(){
       super();
+      this.setIDNumber(3,"4dm1n");
    }
    public RacketOfPadel(double weight, double cost, String nome, String shapeType, String brand){
-      super(weight,cost, nome, shapeType);
+      super(weight,cost, nome, shapeType,3);
       this.brand = brand;
+      shapes = new ArrayList<>(Arrays.asList("Rotonda","Goccia","Diamante"));
+      if(!this.isValidShape(this.getShapeType())){
+         setShapeType(shapeType);
+      }
    }
    public String getBrand(){
       return this.brand;
@@ -24,6 +32,7 @@ public class RacketOfPadel extends Product {
       return category;
    }
    public void setShapeType(String shapeType){
+      shapes = new ArrayList<>(Arrays.asList("Rotonda","Goccia","Diamante"));
       if(!isValidShape(shapeType)){
          Scanner input = new Scanner(System.in);
          System.out.printf("***\"%s\" FORMA NON VALIDA***\n", shapeType);
@@ -37,8 +46,15 @@ public class RacketOfPadel extends Product {
       this.category = shapeType;
    }
    private boolean isValidShape(String shapeType) {
-      return shapeType.equalsIgnoreCase("Rotonda") || shapeType.equalsIgnoreCase("Goccia") ||
-            shapeType.equalsIgnoreCase("Diamante"); //sinceramente me l'ha consigliato intelliJ, ma in effetti
+      //***ci ho ripensato, per le forme userò un arrayList***
+      for (String s : shapes) {
+         if (shapeType.equalsIgnoreCase(s)){
+            return true;
+         }
+      }
+      return false;
+      //return shapeType.equalsIgnoreCase("Rotonda") || shapeType.equalsIgnoreCase("Goccia") || *--> lo voglio conservare per non dimenticare
+        //    shapeType.equalsIgnoreCase("Diamante"); //sinceramente me l'ha consigliato intelliJ, ma in effetti
    }                                                           //ha molto più senso che fare un if, tanto ritornerà
 }                                                              //sempre o true o false, ed è ciò che mi serve
                                                                //mi sento scemo a non averci pensato .-. avevamo anche

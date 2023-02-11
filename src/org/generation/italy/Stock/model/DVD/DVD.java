@@ -6,9 +6,10 @@ public class DVD extends Product {
    private double duration;
    public DVD(){
       super();
+      this.setIDNumber(2,"4dm1n");
    }
    public DVD(double weight, double cost, String title, String category,  double duration){
-      super(weight,cost, title, category);
+      super(weight,cost, title, category,2);
       this.duration = duration;
    }
    public String getTitle(){ //per una questione di coerenza, e venga più facile da usare

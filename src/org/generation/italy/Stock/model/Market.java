@@ -1,4 +1,5 @@
 package org.generation.italy.Stock.model;
+import org.generation.italy.Stock.model.Books.Book;
 import org.generation.italy.Stock.model.Racket.RacketOfPadel;
 
 import java.util.ArrayList;
@@ -78,15 +79,13 @@ public class Market {
       mE = null;                                //se non c'era nessuno elemento allora posso tornare il valore dell oggetto
       return mE;                                //ritornerà null, non avremo nessun oggetto
    }
-   //Non è richiesta, ma metti che poi la voglio usare con un altro prodotto che non è un libro
-   //con la categoria fantasy che facciamo? eh? cioè dai, ora l'abbiamo scritto il corrispondente
-   //con SoftHouse, è da allocchi non farla, quasi una provocazione! Basta, mi sono arrabbiato, non scivo più!
-   public int numberOfProductOnCategory(String categ){
+
+   public int numberOfProductOnCategory(String categ, int iDProdotto){
       int prodNum = 0;
       if(allProducts.size()>0){
          for(Product prod : allProducts){
-            if(prod.getCategory().equalsIgnoreCase(categ)){
-               prodNum++;
+            if(prod.getiDNumber() == iDProdotto && prod.getCategory().equalsIgnoreCase(categ)) {
+                  prodNum++;
             }
          }
       }
@@ -94,42 +93,46 @@ public class Market {
    }
 
 //3e. il numero di libri nella categoria "Fantasy"
-   public int numBookFantasy(String f){
-      f="Fantasy";
-      return numberOfProductOnCategory(f);
+   public int numBookFantasy(){
+      String f="Fantasy";
+      Book temp = new Book();
+      return numberOfProductOnCategory(f,temp.getiDNumber());
    }
-//***********************Il nome è abbastanza explicito***********************
-   public Product moreExpensiveOnCategory(String categ){
-      Product prod;
-      if(allProducts.size()>0){
-         prod = allProducts.get(0);
-         for(Product p : allProducts){
-            if (p.getCost()>prod.getCost()){
-               prod = p;
-            }
-         }
-         return prod;
-      }
-      prod =null;
-      return prod;
-   }
+
 //3f. un'ArrayList con dentro tutte le Racchette A Goccia, e che costano più di €100,00
 
-   public ArrayList<Product> dropRacket100(){
-      ArrayList<Product> dropRacket = new ArrayList<>(allProducts.size());
+
+   public ArrayList<Product> dropRacket(){
+      ArrayList<Product> Racket = new ArrayList<>(allProducts.size()); //al massimo avrei un array di sole racchette
+      RacketOfPadel pad = new RacketOfPadel();
+      int idenifierOfPadel = pad.getiDNumber();
+      pad = null;
       if(allProducts.size()>0) {
          for (Product p : allProducts) {
-            if(p.getClass() == RacketOfPadel.class) {
-               if(((RacketOfPadel) p).getShapeType().equalsIgnoreCase("goccia")){
-                  if (p.getCost() > 100.00) {
-                     dropRacket.add(p);
-                  }
+            if(p.getiDNumber() == idenifierOfPadel) {
+               Racket.add(p);
                }
             }
+         ArrayList<Product> dropRacket100plus = new ArrayList<>(Racket.size());
+         for (int i = 0; i<Racket.size();i++){
+            if(Racket.get(i).getCategory().equalsIgnoreCase("Goccia") && Racket.get(i).getCost() > 100){
+               dropRacket100plus.add(Racket.get(i));
+            }
          }
-         return dropRacket;
+         return dropRacket100plus;
       }
-      return dropRacket;
+      return null;
+   }
+
+   public int getPositionOnArray(String Name){
+      for (int i = 0; i < allProducts.size(); i++){
+         if(allProducts.get(i).getname().equalsIgnoreCase(Name)){
+            return i;
+         }
+      }
+      return -1;
    }
 
 }
+
+

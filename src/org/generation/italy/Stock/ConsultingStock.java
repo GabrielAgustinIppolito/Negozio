@@ -11,8 +11,8 @@ import java.util.Arrays;
 
 public class ConsultingStock {
    public static void main(String[] args) {
-      Book vuoto = new Book();
-      System.out.println(vuoto.getIsbn()); //giusto per vedere che lo posso inizializzare vuoto
+//      Book vuoto = new Book();
+//      System.out.println(vuoto.getIsbn()); //giusto per vedere che lo posso inizializzare vuoto
       Book HeadFirstJava = new Book(1.47,72.5,"Head First Java: A Learner's Guide to Real-World" +
             " Programming","Programmazione","***ISBN-10: 1491910771 *** ISBN-13: 978-1491910771***",
             716);
@@ -70,10 +70,47 @@ public class ConsultingStock {
       System.out.println("Il nostro prodotto che costa di più è " + jetMarket.moreExpensive().getname() +
             " ma tanto si vede che sei un poveraccio, non guardarlo neanche!");
 
-      System.out.print("Ecco un elenco delle nostre racchette da padel a Goccia che valgono più di 100 euro: ");
-      for (Product p : jetMarket.dropRacket100()){
-         System.out.printf("%s che vale %,.2f\n", p.getname(),p.getCost());
+      System.out.print("Ecco un elenco delle nostre racchette da padel a Goccia che valgono più di 100 euro: \n");
+      for (Product p : jetMarket.dropRacket()){
+         System.out.printf("-%s che vale %,.2f€\n", p.getname(),p.getCost());
       }
+      int numOfFantasyBooks = jetMarket.numBookFantasy();
+      switch (numOfFantasyBooks){
+         case 0:
+            System.out.printf("Mi dispiace, non abbiamo libri Fantasy. %do%d",numOfFantasyBooks,numOfFantasyBooks);
+            break;
+         case 1:
+            System.out.printf("Abbiamo solo %d libro Fantasy...\n", numOfFantasyBooks);
+            break;
+         default:
+            System.out.printf("Abbiamo ben %d libri Fantasy...\n", numOfFantasyBooks);
+      }
+      Book temp = new Book();
+      for(Product p : jetMarket.getAllProducts()){
+         if(p.getCategory().equalsIgnoreCase("Fantasy" )&& p.getiDNumber() == temp.getiDNumber()){
+            System.out.println(p.getname());
+         }
+      }
+      temp = null; //non mi piace questa soluzione, come posso accedere alla variabile id senza un oggetto?
+      System.out.println();
+      jetMarket.setProprietario("Homer");
+      System.out.printf("%s ha nu nuovo proprietario: %s\n",jetMarket.getMarketName(), jetMarket.getProprietario());
+
+      int posizione = -1, posizione2= -1;
+      posizione = jetMarket.getPositionOnArray(HeadFirstJava.getname());
+      jetMarket.getAllProducts().get(posizione).discountPercent(83);
+      posizione2 = jetMarket.getPositionOnArray(hPx8.getname());
+      jetMarket.getAllProducts().get(posizione2).discountMinus(35);
+      System.out.printf("%s é proprio un genio degli affari! Ha deciso di scontare:\n \"%s\" del 83%% e \n\"%s\" di 35€!!! " +
+            "Approfittane!\n", jetMarket.getProprietario(), HeadFirstJava.getTitle(), hPx8.getTitle());
+      System.out.printf("         ***Adesso costano*** \n*** %s: %,.2f€ --> %,.2f€\n*** %s:  %,.2f€--> %,.2f€\n",
+            jetMarket.getAllProducts().get(posizione).getname(),
+            jetMarket.getAllProducts().get(posizione).getOriginalCost(),
+            jetMarket.getAllProducts().get(posizione).getCost(),
+            jetMarket.getAllProducts().get(posizione2).getname(),
+            jetMarket.getAllProducts().get(posizione2).getOriginalCost(),
+            jetMarket.getAllProducts().get(posizione2).getCost());
+
 //      System.out.println(Arrays.toString(jetMarket.getAllProductsNames()));
 
    }

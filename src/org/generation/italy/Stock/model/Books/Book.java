@@ -5,11 +5,13 @@ import org.generation.italy.Stock.model.Product;
 public class Book extends Product {
    private String isbn;
    private int pages;
+
    public Book(){
       super();
+      this.setIDNumber(1,"4dm1n");
    }
    public Book(double weight, double cost, String title, String category, String ISBN, int pages){
-      super(weight,cost, title, category);
+      super(weight,cost, title, category,1);
       this.isbn = ISBN;
       this.pages = pages;
    }
